@@ -17,11 +17,17 @@ export default function Form(){
             </View>
             <View>
                 <RNPickerSelect
+                    style = {selectStyle}
+                    placeholder={{
+                        label: 'Selecciona los meses...',
+                        value: null
+                    }}
                     onValueChange={(value) => console.log(value)}
                     items={[
-                        { label: 'Football', value: 'football' },
-                        { label: 'Baseball', value: 'baseball' },
-                        { label: 'Hockey', value: 'hockey' },
+                        { label: '3 meses', value: '3' },
+                        { label: '6 meses', value: '6' },
+                        { label: '12 meses', value: '12' },
+                        { label: '24 meses', value: '24'}
                     ]}
                 />
             </View>
@@ -57,3 +63,26 @@ const estilitos = StyleSheet.create({
         height:50,
     }
 });
+
+const selectStyle = StyleSheet.create({
+    inputAndroid:{
+        backgroundColor:"#fff",
+        marginTop: 10,
+        fontSize: 16,
+        padding: 10,
+        borderWidth: 0.5,
+        borderColor: "black",
+        borderRadius: 6,
+        paddingRight: 25
+    },
+    inputIOS:{
+        backgroundColor:"#fff",
+        marginTop: 10,
+        fontSize: 16,
+        padding: 10,
+        borderWidth: 0.5,
+        borderColor: "black",
+        borderRadius: 6,
+        paddingRight: 25
+    }
+})
