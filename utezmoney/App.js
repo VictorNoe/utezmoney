@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {StyleSheet, SafeAreaView , Text, View, StatusBar, Button} from 'react-native';
+import {StyleSheet, SafeAreaView , Text, View, StatusBar} from 'react-native';
 import colors from './src/utils/colors';
 import Form from "./src/components/form";
+import BtnCalcular from "./src/components/BtnCalcular";
 
 export default function App() {
   const [cantidad, setCantidad] = useState(null);
@@ -28,9 +29,7 @@ export default function App() {
         <View>
           <Text>Resultados </Text>
         </View>
-        <View>
-          <Button onPress={calcular} title={"PRESIONAME"}/>
-        </View>
+        <BtnCalcular/>
     </View>
   );
 }
