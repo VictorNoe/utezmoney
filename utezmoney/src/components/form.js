@@ -2,18 +2,25 @@ import {View, TextInput, StyleSheet} from "react-native";
 import colors from '../utils/colors';
 import RNPickerSelect from 'react-native-picker-select';
 
-export default function Form(){
+export default function Form(props){
+    //console.log(props);
+    const {setCantidad, setPlazo, setInteres} = props;
+
     return(
         <View style={estilitos.viewForm}>
             <View style={estilitos.viewInputs}>
                 <TextInput
                     placeholder="Cantidad a pedir"
                     keyboardType="numeric"
-                    style={estilitos.inputs}/>
+                    style={estilitos.inputs}
+                    onChange={(e)=>setCantidad(e.nativeEvent.text)}
+                />
                 <TextInput
                     placeholder="Interes %"
                     keyboardType="numeric"
-                    style={[estilitos.inputs, {width:"40%", marginLeft: 5}]}/>
+                    style={[estilitos.inputs, {width:"40%", marginLeft: 5}]}
+                    onChange={(e)=>setInteres(e.nativeEvent.text)}
+                />
             </View>
             <View>
                 <RNPickerSelect
@@ -22,7 +29,8 @@ export default function Form(){
                         label: 'Selecciona los meses...',
                         value: null
                     }}
-                    onValueChange={(value) => console.log(value)}
+                    useNativeAndroidPickerStyle={false}
+                    onValueChange={(value) => setPlazo(value)}
                     items={[
                         { label: '3 meses', value: '3' },
                         { label: '6 meses', value: '6' },
@@ -44,7 +52,8 @@ const estilitos = StyleSheet.create({
         backgroundColor: colors.C_PRIMARIO_O,
         borderRadius: 30,
         height:200,
-        justifyContent: "center"
+        justifyContent: "center",
+        position:"absolute"
     },
     viewInputs:{
         flexDirection:"row"
@@ -73,7 +82,8 @@ const selectStyle = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "black",
         borderRadius: 6,
-        paddingRight: 25
+        paddingRight: 25,
+        color:"black"
     },
     inputIOS:{
         backgroundColor:"#fff",
@@ -83,6 +93,7 @@ const selectStyle = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "black",
         borderRadius: 6,
-        paddingRight: 25
+        paddingRight: 25,
+        color:"black",
     }
 })
