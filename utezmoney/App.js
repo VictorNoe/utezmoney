@@ -3,19 +3,41 @@ import {StyleSheet, SafeAreaView , Text, View, StatusBar} from 'react-native';
 import colors from './src/utils/colors';
 import Form from "./src/components/form";
 import BtnCalcular from "./src/components/BtnCalcular";
+import Results from "./src/components/results";
 
 export default function App() {
   const [cantidad, setCantidad] = useState(null);
   const [interes, setInteres] = useState(null);
   const [plazo, setPlazo] = useState(null);
+  const [prestamo, setPrestamo] = useState(null);
+  const [error, setError] = useState("");
+
+  const reset = () => {
+      setError("");
+      setPrestamo(null);
+  }
 
   const calcular = () => {
-      console.log(`cant: ${cantidad}`);
-      console.log(`int: ${interes}`);
-      console.log(`plz: ${plazo}`);
+      reset();
+      if (!cantidad) {
+          setError("Ingresa la cantidad");
+      } else if (!interes) {
+          setError("Ingresa el interes");
+      } else if (!plazo) {
+          setError("Ingresa el plazo");
+      } else {
+          const inte = interes/100;
+          const pagos = cantidad / ((1-Math.pow(inte+1, -plazo))/inte);
+          setPrestamo({
+              pagoMes: pagos.toFixed(2),
+              pagoTotal: (pagos*plazo).toFixed(2)
+          })
+          console.log(prestamo);
+      }
   }
+
   return (
-    <View>
+    <>
         <StatusBar style={'light-content'}/>
         <SafeAreaView style={styles.sefeArea}>
             <View style={styles.comodin}></View>
@@ -26,11 +48,15 @@ export default function App() {
                 setPlazo={setPlazo}
             />
         </SafeAreaView>
-        <View>
-          <Text>Resultados </Text>
-        </View>
-        <BtnCalcular/>
-    </View>
+        <Results
+            errors = {error}
+            cantidad = {cantidad}
+            interes = {interes}
+            plazos = {plazo}
+            prestamos = {prestamo}
+        />
+        <BtnCalcular fnCalc={calcular}/>
+    </>
   );
 }
 
