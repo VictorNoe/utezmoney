@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView , Text, View, StatusBar} from 'react-native';
 import colors from './src/utils/colors';
 import Form from "./src/components/form";
@@ -11,6 +11,14 @@ export default function App() {
   const [plazo, setPlazo] = useState(null);
   const [prestamo, setPrestamo] = useState(null);
   const [error, setError] = useState("");
+
+  useEffect( ()=> {
+      if(cantidad&&interes&&plazo) {
+          calcular()
+      } else {
+          reset()
+      }
+  },[cantidad, interes, plazo])
 
   const reset = () => {
       setError("");
